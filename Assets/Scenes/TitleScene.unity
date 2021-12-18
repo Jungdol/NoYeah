@@ -619,20 +619,20 @@ MonoBehaviour:
     volumn: 1
     output: SFX
     loop: 0
-  - name: 
-    clip: {fileID: 0}
-    volumn: 0
-    output: 
+  - name: AddElf
+    clip: {fileID: 8300000, guid: f0fd55bcbf1d71745883c2afc19a81ed, type: 3}
+    volumn: 1
+    output: SFX
     loop: 0
-  - name: 
-    clip: {fileID: 0}
-    volumn: 0
-    output: 
-    loop: 0
-  - name: 
-    clip: {fileID: 0}
-    volumn: 0
-    output: 
+  - name: SantaBGM
+    clip: {fileID: 8300000, guid: c7f0fb247cbbd234ab37e04aab657a38, type: 3}
+    volumn: 0.75
+    output: BGM
+    loop: 1
+  - name: SleighSound
+    clip: {fileID: 8300000, guid: 18608abeb378dc14e884e0a54c9208cb, type: 3}
+    volumn: 1
+    output: SFX
     loop: 0
 --- !u!4 &408997603
 Transform:
