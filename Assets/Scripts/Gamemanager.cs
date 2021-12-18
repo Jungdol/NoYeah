@@ -29,35 +29,59 @@ public class Gamemanager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (ball.blacksnata == true)
         {
-            isDragging = true;
-            OnDragStart();
+            if (ball.junmpcnt < 2)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isDragging = true;
+                    OnDragStart();
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    ball.junmpcnt += 1;
+                    isDragging = false;
+                    OnDragEnd();
+                }
+                if (isDragging)
+                {
+                    OnDrag();
+                }
+            }
         }
-        if (Input.GetMouseButtonUp(0))
+        else if (ball.junmpcnt < 1)
         {
-            isDragging = false;
-            OnDragEnd();
-        }
-        if (isDragging)
-        {
-            OnDrag();
+            if (Input.GetMouseButtonDown(0))
+            {
+                isDragging = true;
+                OnDragStart();
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                ball.junmpcnt += 1;
+                isDragging = false;
+                OnDragEnd();
+            }
+            if (isDragging)
+            {
+                OnDrag();
+            }
         }
     }
     void OnDragStart()
     {
-        ball.DesActivateRb();
-        startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-        trajectory.Show();
+            ball.DesActivateRb();
+            startPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            trajectory.Show();
     }
     void OnDrag()
     {
-        endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-        distance = Vector2.Distance(startPoint, endPoint);
-        direction = (startPoint - endPoint).normalized;
-        force = direction * distance * pushForce;
-        trajectory.UpdateDots(ball.Pos, force);
-        
+            endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
+            distance = Vector2.Distance(startPoint, endPoint);
+            direction = (startPoint - endPoint).normalized;
+            force = direction * distance * pushForce;
+            trajectory.UpdateDots(ball.Pos, force);
     }
     void OnDragEnd()
     {
@@ -65,4 +89,5 @@ public class Gamemanager : MonoBehaviour
         ball.Push(force);
         trajectory.Hide();
     }
+    
 }

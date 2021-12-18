@@ -7,10 +7,13 @@ public class Ball : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public CircleCollider2D col;
     [HideInInspector]public Vector3 Pos { get { return transform.position; } }
+    public int junmpcnt=1;
+    public bool blacksnata;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<CircleCollider2D>();
+        junmpcnt = 0;
     }
     public void Push(Vector2 force)
     {
@@ -25,5 +28,13 @@ public class Ball : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = 0f;
         rb.isKinematic = false;
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        junmpcnt = 0; 
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        junmpcnt +=1;
     }
 }
