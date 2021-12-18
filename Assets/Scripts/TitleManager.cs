@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
+    public GameObject setting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,5 +26,10 @@ public class TitleManager : MonoBehaviour
     public void ExitBtn()
     {
 
+    }
+
+    public void SettingBtn()
+    {
+        setting.SetActive(true);
     }
 }
