@@ -11,11 +11,8 @@ public class Settings : MonoBehaviour
 
     [Header("家府")]
     public Slider MasterSoundSlider;
-    public Text MasterSoundText;
     public Slider BGMSoundSlider;
-    public Text BGMSoundText;
     public Slider EffectSoundSlider;
-    public Text EffectSoundText;
     [Header("滚瓢 家府")]
     public string buttonSound;
 
@@ -42,22 +39,23 @@ public class Settings : MonoBehaviour
     public void MasterSoundSlide(float _value)
     {
         PlayerPrefs.SetInt("MasterSoundVolume", (int)_value);
-        MasterSoundText.text = _value.ToString();
-        mixer.SetFloat("Master", _value - 80);
+
+        if (_value == -40f) mixer.SetFloat("Master", _value - 80);
+        else mixer.SetFloat("Master", _value);
     }
 
     public void BGMSoundSlide(float _value)
     {
         PlayerPrefs.SetInt("BGMSoundVolume", (int)_value);
-        BGMSoundText.text = _value.ToString();
-        mixer.SetFloat("BGM", _value - 80);
+        if (_value == -40f) mixer.SetFloat("BGM", _value - 80);
+        else mixer.SetFloat("BGM", _value);
     }
 
     public void EffectSoundSlide(float _value)
     {
         PlayerPrefs.SetInt("EffectSoundVolume", (int)_value);
-        EffectSoundText.text = _value.ToString();
-        mixer.SetFloat("SFX", _value - 80);
+        if (_value == -40f) mixer.SetFloat("SFX", _value - 80);
+        else mixer.SetFloat("SFX", _value);
     }
 
     void SoundInt()
@@ -79,15 +77,15 @@ public class Settings : MonoBehaviour
         }
 
         MasterSoundSlider.value = PlayerPrefs.GetInt("MasterSoundVolume");
-        MasterSoundText.text = PlayerPrefs.GetInt("MasterSoundVolume").ToString();
-        mixer.SetFloat("Master", PlayerPrefs.GetInt("MasterSoundVolume") - 80);
+        if (PlayerPrefs.GetInt("MasterSoundVolume") == -40f) mixer.SetFloat("Master", PlayerPrefs.GetInt("MasterSoundVolume") - 80);
+        else mixer.SetFloat("Master", PlayerPrefs.GetInt("MasterSoundVolume"));
 
         BGMSoundSlider.value = PlayerPrefs.GetInt("BGMSoundVolume");
-        BGMSoundText.text = PlayerPrefs.GetInt("BGMSoundVolume").ToString();
-        mixer.SetFloat("BGM", PlayerPrefs.GetInt("BGMSoundVolume") - 80);
+        if (PlayerPrefs.GetInt("BGMSoundVolume") == -40f) mixer.SetFloat("BGM", PlayerPrefs.GetInt("BGMSoundVolume") - 80);
+        else mixer.SetFloat("BGM", PlayerPrefs.GetInt("BGMSoundVolume"));
 
         EffectSoundSlider.value = PlayerPrefs.GetInt("EffectSoundVolume");
-        EffectSoundText.text = PlayerPrefs.GetInt("EffectSoundVolume").ToString();
-        mixer.SetFloat("SFX", PlayerPrefs.GetInt("EffectSoundVolume") - 80);
+        if (PlayerPrefs.GetInt("EffectSoundVolume") == -40f) mixer.SetFloat("SFX", PlayerPrefs.GetInt("EffectSoundVolume") - 80);
+        else mixer.SetFloat("SFX", PlayerPrefs.GetInt("EffectSoundVolume"));
     }
 }
