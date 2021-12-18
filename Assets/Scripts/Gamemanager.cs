@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gamemanager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static Gamemanager Instance;
+    public static GameManager Instance;
     Camera cam;
     public Ball ball;
     public Trajectory trajectory;
