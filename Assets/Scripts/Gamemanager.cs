@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
     public int elf;
     public bool iself=false;
     public Text elfcnt;
+    public Image blacksanta;
+    public float colltime;
+    public bool isbalcksansta=false;
     [SerializeField] float pushForce = 4f;
 
     Camera cam;
@@ -30,33 +34,36 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-        }
+        } 
     }
 
     private void Start()
     {
         cam = Camera.main;
         ball.DesActivateRb();
+        colltime = 0.5f;
     }
 
     private void Update()
     {
         elfcnt.text = "≥≠¿Ô¿Ã:" + elf;
+        colltime -= Time.deltaTime;
         if (elf == 10)
         {
-            pushForce=4.6f;
+            pushForce=2.6f;
         }
         if (elf == 20)
         {
-            pushForce = 4.4f;
+            pushForce = 2.4f;
         }
         if (elf == 30)
         {
-            pushForce = 4.2f;
+            pushForce = 2.2f;
         }
-        if (!iself)
+
+        if (!iself && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (ball.blacksnata == true)
+            if (isbalcksansta == true)
             {
                 if (ball.junmpcnt < 2)
                 {
@@ -75,25 +82,37 @@ public class GameManager : MonoBehaviour
                     {
                         OnDrag();
                     }
+
+                }
+                if (ball.junmpcnt == 2)
+                {
+                    isbalcksansta = false;
                 }
             }
-            else if (ball.junmpcnt < 1)
+            if (colltime <= 0)
             {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    isDragging = true;
-                    OnDragStart();
-                }
-                if (Input.GetMouseButtonUp(0))
-                {
-                    ball.junmpcnt += 1;
-                    isDragging = false;
-                    OnDragEnd();
-                }
-                if (isDragging)
-                {
-                    OnDrag();
-                }
+                    if (ball.junmpcnt < 1)
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            isDragging = true;
+                            OnDragStart();                      
+                        }
+                    if (ball.time >= 0.25f)
+                    {
+                        if (Input.GetMouseButtonUp(0))
+                        {
+                            ball.junmpcnt += 1;
+                            isDragging = false;
+                            OnDragEnd();
+                            colltime = 0.2f;
+                        }
+                    }
+                        if (isDragging)
+                        {
+                            OnDrag();
+                        }
+                    }
             }
         }
     }
@@ -106,6 +125,7 @@ public class GameManager : MonoBehaviour
     }
     void OnDrag()
     {
+       
             endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             distance = Vector2.Distance(startPoint, endPoint);
             direction = (startPoint - endPoint).normalized;
@@ -127,5 +147,29 @@ public class GameManager : MonoBehaviour
     public void UnPauseBtn()
     {
         StartCoroutine(pauseFade.FadeIn("Game"));
+    }
+    public void OnBlackSanta()
+    {
+        if (!isbalcksansta&&elf>=2)
+        {
+            StartCoroutine(CoolTime(5f));
+            Invoke("offsnata", 4.0f);
+            elf -= 2;
+        }
+    }
+    IEnumerator CoolTime(float cool)
+    {
+        while (cool > 1.0f)
+        {
+            cool -= Time.deltaTime;
+            blacksanta.fillAmount = (1.0f / cool);
+            isbalcksansta = true;
+            yield return new WaitForFixedUpdate();
+          
+        }
+    }
+    public void offsnata()
+    {
+        isbalcksansta = false;
     }
 }

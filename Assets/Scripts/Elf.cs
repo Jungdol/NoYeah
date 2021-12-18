@@ -10,6 +10,7 @@ public class Elf : MonoBehaviour
         gameManager.elf += 1;
         gameManager.iself = false;
         Destroy(this.gameObject);
+
     }
     private void OnMouseEnter()
     {
