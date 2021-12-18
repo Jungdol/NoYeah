@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Image blacksanta;
     public float colltime;
     public bool isbalcksansta=false;
+    public int ChangeCnt;
     [SerializeField] float pushForce = 4f;
 
     Camera cam;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         cam = Camera.main;
         ball.DesActivateRb();
         colltime = 0.5f;
+        pushForce = 3.0f;
     }
 
     private void Update()
@@ -155,6 +157,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine(CoolTime(5f));
             Invoke("offsnata", 4.0f);
             elf -= 2;
+            ChangeCnt += 1;
+
         }
     }
     IEnumerator CoolTime(float cool)
