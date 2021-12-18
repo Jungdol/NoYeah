@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    Camera cam;
     public Ball ball;
     public Trajectory trajectory;
-    public Fade pauseFade;
     [SerializeField] float pushForce = 4f;
-
-    Camera cam;
-
+    bool isDragging = false;
     Vector2 startPoint;
     Vector2 endPoint;
     Vector2 direction;
     Vector2 force;
-
-    bool isDragging = false;
     float distance;
-
-    public static GameManager Instance;
     private void Awake()
     {
         if (Instance == null)
@@ -27,13 +22,11 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-
     private void Start()
     {
         cam = Camera.main;
         ball.DesActivateRb();
     }
-
     private void Update()
     {
         if (ball.blacksnata == true)
@@ -76,7 +69,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
     void OnDragStart()
     {
             ball.DesActivateRb();
@@ -98,15 +90,4 @@ public class GameManager : MonoBehaviour
         trajectory.Hide();
     }
     
-    public void PauseBtn()
-    {
-        StartCoroutine(pauseFade.FadeOut("Game", 0.75f));
-        Time.timeScale = 0;
-    }
-
-    public void UnPauseBtn()
-    {
-        StartCoroutine(pauseFade.FadeIn("Game"));
-        Time.timeScale = 1;
-    }
 }
