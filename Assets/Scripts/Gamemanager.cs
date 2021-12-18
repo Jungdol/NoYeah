@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public Ball ball;
     public Trajectory trajectory;
     public Fade pauseFade;
+    public int elf;
+    public bool iself=false;
+    public Text elfcnt;
     [SerializeField] float pushForce = 4f;
 
     Camera cam;
@@ -36,9 +41,43 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (ball.blacksnata == true)
+        elfcnt.text = "≥≠¿Ô¿Ã:" + elf;
+        if (elf == 10)
         {
-            if (ball.junmpcnt < 2)
+            pushForce=4.6f;
+        }
+        if (elf == 20)
+        {
+            pushForce = 4.4f;
+        }
+        if (elf == 30)
+        {
+            pushForce = 4.2f;
+        }
+        if (!iself)
+        {
+            if (ball.blacksnata == true)
+            {
+                if (ball.junmpcnt < 2)
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        isDragging = true;
+                        OnDragStart();
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        ball.junmpcnt += 1;
+                        isDragging = false;
+                        OnDragEnd();
+                    }
+                    if (isDragging)
+                    {
+                        OnDrag();
+                    }
+                }
+            }
+            else if (ball.junmpcnt < 1)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -55,24 +94,6 @@ public class GameManager : MonoBehaviour
                 {
                     OnDrag();
                 }
-            }
-        }
-        else if (ball.junmpcnt < 1)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                isDragging = true;
-                OnDragStart();
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                ball.junmpcnt += 1;
-                isDragging = false;
-                OnDragEnd();
-            }
-            if (isDragging)
-            {
-                OnDrag();
             }
         }
     }
