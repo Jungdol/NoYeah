@@ -101,12 +101,10 @@ public class GameManager : MonoBehaviour
     public void PauseBtn()
     {
         StartCoroutine(pauseFade.FadeOut("Game", 0.75f));
-        Time.timeScale = 0;
     }
 
     public void UnPauseBtn()
     {
         StartCoroutine(pauseFade.FadeIn("Game"));
-        Time.timeScale = 1;
     }
 }
