@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Elf : MonoBehaviour
 {
+    AudioManager theAudio;
     public GameManager gameManager;
+    private void Start()
+    {
+        theAudio = FindObjectOfType<AudioManager>();
+    }
     private void OnMouseUp()
     {
+        theAudio.Play("AddElf");
         gameManager.elf += 1;
         gameManager.iself = false;
         Destroy(this.gameObject);
