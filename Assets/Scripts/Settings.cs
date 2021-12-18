@@ -6,9 +6,6 @@ using UnityEngine.Audio;
 
 public class Settings : MonoBehaviour
 {
-    [Header("È­¸é Èçµé¸²")]
-    public Toggle ShakeToggle;
-
     [Header("¿Àµð¿À ¹Í¼­")]
     public AudioMixer mixer;
 
@@ -68,7 +65,7 @@ public class Settings : MonoBehaviour
         if (!PlayerPrefs.HasKey("MasterSoundVolume"))
         {
             PlayerPrefs.HasKey("MasterSoundVolume");
-            PlayerPrefs.SetInt("MasterSoundVolume", 40);
+            PlayerPrefs.SetInt("MasterSoundVolume", 50);
         }
         if (!PlayerPrefs.HasKey("BGMSoundVolume"))
         {

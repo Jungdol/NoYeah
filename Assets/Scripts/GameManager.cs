@@ -148,6 +148,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(pauseFade.FadeIn("Game"));
     }
+
     public void OnBlackSanta()
     {
         if (!isbalcksansta&&elf>=2)
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour
             elf -= 2;
         }
     }
+
     IEnumerator CoolTime(float cool)
     {
         while (cool > 1.0f)
