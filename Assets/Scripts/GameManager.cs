@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public float colltime;
     public bool isbalcksansta=false;
     public int ChangeCnt;
+    AudioManager theAudio;
     [SerializeField] float pushForce = 4f;
 
     Camera cam;
@@ -44,10 +45,12 @@ public class GameManager : MonoBehaviour
         ball.DesActivateRb();
         colltime = 0.5f;
         pushForce = 3.0f;
+        theAudio = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
     {
+        theAudio.Play("SantaBGM");
         elfcnt.text = "≥≠¿Ô¿Ã:" + elf;
         colltime -= Time.deltaTime;
         if (elf == 10)
