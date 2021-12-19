@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
+    public Sprite player;
+    public Sprite blackSanta;
+
+    public Sprite tempSprite;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public CircleCollider2D col;
     [HideInInspector]public Vector3 Pos { get { return transform.position; } }
@@ -14,6 +19,10 @@ public class Ball : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<CircleCollider2D>();
         junmpcnt = 0;
+    }
+    private void Start()
+    {
+        tempSprite = player;
     }
     public void Push(Vector2 force)
     {
@@ -43,5 +52,12 @@ public class Ball : MonoBehaviour
     {
         junmpcnt = 0;
         
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Floor")
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }

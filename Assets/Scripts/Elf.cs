@@ -25,4 +25,5 @@ public class Elf : MonoBehaviour
     {
         gameManager.iself = false;
     }
+   
 }

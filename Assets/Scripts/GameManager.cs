@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
                 if (ball.junmpcnt == 2)
                 {
                     isbalcksansta = false;
+                    ball.player = ball.tempSprite;
                 }
             }
             if (colltime <= 0)
@@ -170,6 +171,7 @@ public class GameManager : MonoBehaviour
             Invoke("offsnata", 4.0f);
             elf -= 2;
             ChangeCnt += 1;
+            ball.player = ball.blackSanta;
 
         }
     }
