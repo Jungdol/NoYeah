@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
     public float colltime;
     public bool isbalcksansta=false;
     public int ChangeCnt;
-    AudioManager theAudio;
+    Animator animator;
+    public Sprite CurrentSprite;
+    public Sprite NextSprite;
+    //AudioManager theAudio;
     [SerializeField] float pushForce = 4f;
 
     Camera cam;
@@ -45,21 +48,27 @@ public class GameManager : MonoBehaviour
         ball.DesActivateRb();
         colltime = 0.5f;
         pushForce = 3.0f;
-        theAudio = FindObjectOfType<AudioManager>();
+        //theAudio = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
     {
-        theAudio.Play("SantaBGM");
+        // theAudio.Play("SantaBGM");
+        if (elf > 10)
+        {
+            animator.SetBool("Santa1", true);
+        }
         elfcnt.text = "≥≠¿Ô¿Ã:" + elf;
         colltime -= Time.deltaTime;
         if (elf == 10)
         {
             pushForce=2.6f;
+           
         }
         if (elf == 20)
         {
             pushForce = 2.4f;
+            
         }
         if (elf == 30)
         {
@@ -130,7 +139,6 @@ public class GameManager : MonoBehaviour
     }
     void OnDrag()
     {
-       
             endPoint = cam.ScreenToWorldPoint(Input.mousePosition);
             distance = Vector2.Distance(startPoint, endPoint);
             direction = (startPoint - endPoint).normalized;
